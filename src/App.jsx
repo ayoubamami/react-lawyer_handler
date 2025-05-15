@@ -6,11 +6,17 @@ import TimeTable from "./pages/TimeTable";
 import Settings from "./pages/Settings";
 import Archive from "./pages/archive";
 import NavBar from "./components/NavBar";
+import Test from "./components/Test";
 import { Routes, Route } from "react-router-dom";
 import Sessions from "./pages/Sessions";
 
 function App() {
+   const test = 1 ;
+  
   return (
+    <>
+    {test === 1 ? ( 
+      <Test /> ) :(
     <div>
       <NavBar />
       <main className="main-content">
@@ -23,7 +29,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
-    </div>
+    </div>)}
+    </>
   );
 }
 

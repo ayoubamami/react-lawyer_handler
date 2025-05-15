@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "../css/Sessions.css"; // Import the CSS file
+import "../css/Sessions.css"; 
+
 
 function Sessions() {
   const columnHeaders = [

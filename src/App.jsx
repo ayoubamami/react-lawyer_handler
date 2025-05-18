@@ -9,6 +9,10 @@ import NavBar from "./components/NavBar";
 import Test from "./components/Test";
 import { Routes, Route } from "react-router-dom";
 import Sessions from "./pages/Sessions";
+import ColTable from "./components/ColTable";
+
+
+
 
 function App() {
    const test = 1 ;
@@ -16,7 +20,12 @@ function App() {
   return (
     <>
     {test === 1 ? ( 
-      <Test /> ) :(
+     <div>     
+      <h1>testing</h1>
+      <Test />
+     </div>
+    
+    ) :(
     <div>
       <NavBar />
       <main className="main-content">

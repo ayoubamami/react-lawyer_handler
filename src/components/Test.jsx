@@ -4,8 +4,14 @@ import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import InputAdornment from '@mui/material/InputAdornment';
 import SaveIcon from '@mui/icons-material/Save';
+import SearchIcon from '@mui/icons-material/Search';
 import CancelIcon from '@mui/icons-material/Close';
+import {onSnapshot , collection} from '@firebase/firestore'
+import {db} from '../firebase/FireBase'
+import { useEffect } from 'react';
+
 import {
   GridRowModes,
   DataGrid,
@@ -13,6 +19,10 @@ import {
   GridRowEditStopReasons,
   Toolbar,
   ToolbarButton,
+  QuickFilter,
+  QuickFilterTrigger,
+  QuickFilterControl,
+  QuickFilterClear,
 } from '@mui/x-data-grid';
 
 
@@ -62,6 +72,7 @@ const initialRows = [
   },
 ];
 
+
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
 
@@ -81,16 +92,28 @@ function EditToolbar(props) {
     <Toolbar>
       <Tooltip title="Add record">
         <ToolbarButton onClick={handleClick}>
-          <AddIcon fontSize="small" />
+          <AddIcon fontSize="small" />  
         </ToolbarButton>
       </Tooltip>
+      
     </Toolbar>
   );
 }
 
 function Test() {
+
+  useEffect(() => {
+    onSnapshot(collection(db,"users") , (snapshot)=> {
+      console.log(snapshot.docs.map(doc=>doc.data()));
+
+    })
+
+  });
+
   const [rows, setRows] = React.useState(initialRows);
   const [rowModesModel, setRowModesModel] = React.useState({});
+
+  
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -206,8 +229,9 @@ function Test() {
         ];
       },
     },
+    
   ];
-
+   
   return (
     <Box
       sx={{
@@ -223,8 +247,12 @@ function Test() {
     >
       <DataGrid
         rows={rows}
-        columns={columns}
+        columns={columns }
         editMode="row"
+        showCellVerticalBorder
+        showColumnVerticalBorder
+        disableColumnFilter
+        disableColumnSelector
         rowModesModel={rowModesModel}
         onRowModesModelChange={handleRowModesModelChange}
         onRowEditStop={handleRowEditStop}
